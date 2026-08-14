@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تماشای دونفره | FREE MOVIE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<main id="app">
+
+  <!-- ===================== LANDING ===================== -->
+  <section id="view-landing" class="view active">
+    <div class="landing-wrap">
+      <header class="brand">
+        <span class="brand-logo"><i class="dot"></i>FREE MOVIE</span>
+        <span class="brand-url" id="brandUrl"></span>
+      </header>
+
+      <p class="eyebrow">سینمای خصوصی دو نفره</p>
+      <h1 class="hero-title">تماشای دونفره</h1>
+      <p class="hero-sub">یک اتاق امن بساز یا با کد دعوت وارد شو. ویدیو مستقیم در مرورگر هر دو نفر پخش می‌شود و روی هیچ سروری آپلود نمی‌شود.</p>
+
+      <div class="cards-row">
+        <button class="option-card" id="btn-open-join">
+          <span class="option-icon" aria-hidden="true"><i class="ti ti-ticket"></i></span>
+          <span class="option-title">ورود به اتاق</span>
+          <span class="option-desc">کد دعوتی که دریافت کرده‌ای را وارد کن و به تماشای مشترک بپیوند.</span>
+          <span class="option-cta">ورود با کد</span>
+        </button>
+
+        <button class="option-card option-card--gold" id="btn-open-create">
+          <span class="option-icon" aria-hidden="true"><i class="ti ti-movie"></i></span>
+          <span class="option-title">ساخت اتاق جدید</span>
+          <span class="option-desc">فیلم را انتخاب کن، اتاق بساز و کد دعوت را برای همراهت بفرست.</span>
+          <span class="option-cta option-cta--gold">ساخت اتاق</span>
+        </button>
+      </div>
+
+      <p class="privacy-note">دیتابیس فقط وضعیت اتاق، زیرنویس و سیگنال اتصال را نگه می‌دارد؛ فایل ویدیو و صدای میکروفون ذخیره نمی‌شود.</p>
+    </div>
+  </section>
+
+  <!-- ===================== JOIN: ENTER CODE ===================== -->
+  <section id="view-join" class="view">
+    <div class="modal-wrap">
+      <div class="modal-card">
+        <p class="modal-step">ورود به اتاق</p>
+        <h2 class="modal-title">کد دعوت را وارد کن</h2>
+        <label class="field-label" for="joinCodeInput">کد اتاق</label>
+        <input id="joinCodeInput" class="field-input code-input" placeholder="مثلا H38XWJYP" autocomplete="off" maxlength="12">
+        <p class="field-error" id="joinCodeError"></p>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="joinBackBtn">بازگشت</button>
+          <button class="btn btn-gold" id="joinContinueBtn">ادامه</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STEP 1/2: NAME ===================== -->
+  <section id="view-name" class="view">
+    <div class="modal-wrap">
+      <div class="modal-card">
+        <p class="modal-step" id="nameStepLabel">مرحله ۱ از ۲</p>
+        <h2 class="modal-title">نامت را وارد کن</h2>
+        <label class="field-label" for="displayNameInput">نام نمایشی</label>
+        <input id="displayNameInput" class="field-input" placeholder="مثلا آرمین" autocomplete="off" maxlength="24">
+        <label class="checkbox-row">
+          <input type="checkbox" id="saveNameCheckbox">
+          <span>نام را برای دفعات بعد ذخیره کن</span>
+        </label>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="nameBackBtn">بازگشت</button>
+          <button class="btn btn-gold" id="nameContinueBtn">ادامه</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STEP 2/2: VIDEO + SUBTITLE (host) ===================== -->
+  <section id="view-setup" class="view">
+    <div class="modal-wrap">
+      <div class="modal-card modal-card--wide">
+        <p class="modal-step">مرحله ۲ از ۲</p>
+        <h2 class="modal-title">فیلم و زیرنویس</h2>
+
+        <label class="field-label" for="videoUrlInput">لینک مستقیم ویدیو</label>
+        <input id="videoUrlInput" class="field-input" placeholder="https://example.com/movie.mp4" autocomplete="off">
+        <p class="field-hint">فرمت‌های پشتیبانی‌شده: MP4، WebM، HLS / m3u8</p>
+        <p class="field-hint">ویدیو روی سرور آپلود نمی‌شود و مستقیماً در مرورگر هر دو نفر پخش می‌شود.</p>
+
+        <p class="field-label" style="margin-top:20px">زیرنویس</p>
+        <div class="segmented" id="subtitleModeGroup">
+          <label class="segmented-opt"><input type="radio" name="subtitleMode" value="upload"><span>آپلود فایل</span></label>
+          <label class="segmented-opt"><input type="radio" name="subtitleMode" value="link"><span>لینک زیرنویس</span></label>
+          <label class="segmented-opt"><input type="radio" name="subtitleMode" value="none" checked><span>بدون زیرنویس</span></label>
+        </div>
+
+        <div id="subtitleUploadRow" class="sub-row hidden">
+          <input type="file" id="subtitleFileInput" accept=".srt,.vtt">
+        </div>
+        <div id="subtitleLinkRow" class="sub-row hidden">
+          <input id="subtitleLinkInput" class="field-input" placeholder="https://example.com/subtitle.vtt">
+        </div>
+
+        <label class="checkbox-row" style="margin-top:18px">
+          <input type="checkbox" id="pauseOnBufferCheckbox" checked>
+          <span>وقتی یکی از دو نفر بافر می‌کند، پخش مشترک موقت متوقف شود</span>
+        </label>
+        <label class="checkbox-row">
+          <input type="checkbox" id="bothControlCheckbox" checked>
+          <span>هر دو نفر بتوانند پخش را کنترل کنند</span>
+        </label>
+
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="setupBackBtn">مرحله قبل</button>
+          <button class="btn btn-gold" id="createRoomSubmitBtn">ساخت اتاق</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LOBBY ===================== -->
+  <section id="view-lobby" class="view">
+    <div class="lobby-wrap">
+
+      <aside class="lobby-side">
+        <div class="side-card">
+          <h3 class="side-title">میکروفون اختیاری</h3>
+          <p class="side-desc">اگر خواستی هنگام تماشا صحبت کنی، میکروفون را فعال کن.</p>
+          <div class="mic-status" id="micStatusLabel">میکروفون خاموش</div>
+          <button class="btn btn-block" id="micToggleBtn">فعال‌کردن میکروفون</button>
+          <p class="side-hint">برای جلوگیری از برگشت صدا، هدفون پیشنهاد می‌شود.</p>
+        </div>
+
+        <div class="side-card" id="hostSettingsCard">
+          <h3 class="side-title">تنظیمات سازنده</h3>
+          <label class="field-label small">لینک ویدیو</label>
+          <input id="lobbyVideoUrlInput" class="field-input field-input--sm" readonly>
+          <button class="btn btn-outline btn-block" id="changeVideoBtn">تغییر ویدیو</button>
+          <label class="field-label small" style="margin-top:12px">لینک زیرنویس</label>
+          <input id="lobbySubtitleUrlInput" class="field-input field-input--sm" placeholder="https://example.com/subtitle.srt">
+          <div class="side-actions">
+            <button class="btn btn-danger" id="endRoomBtn">پایان اتاق</button>
+            <button class="btn btn-outline" id="changeSubtitleBtn">تغییر زیرنویس</button>
+          </div>
+        </div>
+      </aside>
+
+      <div class="lobby-main">
+        <p class="lobby-kicker">لابی تماشا</p>
+        <h2 class="lobby-title" id="lobbyWaitTitle">منتظر ورود همراه هستیم...</h2>
+
+        <div class="code-display" id="roomCodeDisplay">--------</div>
+
+        <div class="lobby-actions">
+          <button class="btn btn-outline" id="shareBtn"><i class="ti ti-share-2"></i> اشتراک‌گذاری</button>
+          <button class="btn btn-outline" id="copyLinkBtn"><i class="ti ti-copy"></i> کپی لینک</button>
+          <button class="btn btn-outline" id="copyCodeBtn"><i class="ti ti-copy"></i> کپی کد</button>
+          <input id="roomLinkDisplay" class="field-input field-input--sm" readonly>
+        </div>
+
+        <div class="qr-box">
+          <div id="qrcodeBox"></div>
+          <p class="qr-caption">برای ورود با گوشی، QR را اسکن کنید.</p>
+        </div>
+
+        <div class="status-grid" id="statusGrid">
+          <div class="status-item"><span class="status-k">اتصال</span><span class="status-v" id="statConn">در انتظار</span></div>
+          <div class="status-item"><span class="status-k">زیرنویس</span><span class="status-v" id="statSub">بدون زیرنویس</span></div>
+          <div class="status-item"><span class="status-k">فیلم</span><span class="status-v" id="statMovie">انتخاب نشده</span></div>
+          <div class="status-item"><span class="status-k">حالت پخش</span><span class="status-v">مستقیم</span></div>
+          <div class="status-item"><span class="status-k">سازگاری دستگاه</span><span class="status-v">آماده</span></div>
+          <div class="status-item"><span class="status-k" id="peerRoleLabel">همراه</span><span class="status-v" id="statPeer">آنلاین · در انتظار ورود</span></div>
+        </div>
+
+        <button class="btn btn-gold btn-large" id="readyBtn">آماده‌ام</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WATCH ROOM ===================== -->
+  <section id="view-room" class="view">
+    <div class="room-wrap">
+      <header class="room-header">
+        <span class="brand brand--sm"><i class="dot"></i>FREE MOVIE</span>
+        <span class="room-crumb">تماشای دونفره</span>
+        <span class="sync-badge" id="syncBadge">همگام</span>
+      </header>
+
+      <div class="video-wrap">
+        <video id="player" playsinline></video>
+        <audio id="remoteAudio" autoplay></audio>
+
+        <button class="overlay-toggle-btn" id="overlayChatToggle" aria-label="نمایش/پنهان‌کردن چت روی ویدیو">
+          <i class="ti ti-message-circle-2"></i>
+        </button>
+
+        <div class="overlay-chat" id="overlayChat">
+          <div class="overlay-chat-log" id="overlayChatLog"></div>
+          <div class="overlay-chat-input-row">
+            <input id="overlayChatInput" class="field-input field-input--sm" placeholder="پیام بنویس...">
+            <button class="btn btn-gold" id="overlayChatSendBtn">ارسال</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <button class="ctrl-btn" id="playPauseBtn" aria-label="پخش / مکث"><i class="ti ti-player-play"></i></button>
+        <button class="ctrl-btn" id="skipBackBtn" aria-label="عقب ۱۰ ثانیه"><i class="ti ti-rewind-backward-10"></i></button>
+        <button class="ctrl-btn" id="skipFwdBtn" aria-label="جلو ۱۰ ثانیه"><i class="ti ti-rewind-forward-10"></i></button>
+        <div class="ctrl-group">
+          <span class="ctrl-label">صدای فیلم</span>
+          <input type="range" id="videoVolume" min="0" max="1" step="0.05" value="1">
+        </div>
+        <button class="ctrl-btn ctrl-btn--toggle" id="subtitleToggleBtn">زیرنویس</button>
+        <select class="speed-select" id="speedSelect">
+          <option value="0.5">x0.5</option>
+          <option value="0.75">x0.75</option>
+          <option value="1" selected>x1</option>
+          <option value="1.25">x1.25</option>
+          <option value="1.5">x1.5</option>
+          <option value="2">x2</option>
+        </select>
+      </div>
+
+      <div class="controls-row">
+        <button class="ctrl-btn ctrl-btn--toggle" id="micRoomToggleBtn"><i class="ti ti-microphone-off"></i> میکروفون</button>
+        <button class="ctrl-btn" id="pipBtn"><i class="ti ti-picture-in-picture"></i> PiP</button>
+        <button class="ctrl-btn" id="fullscreenBtn"><i class="ti ti-arrows-maximize"></i> تمام‌صفحه</button>
+        <div class="ctrl-group">
+          <span class="ctrl-label">صدای همراه</span>
+          <input type="range" id="remoteVolume" min="0" max="1" step="0.05" value="1">
+        </div>
+      </div>
+
+      <div class="tabs-row">
+        <button class="tab-btn active" data-tab="tab-room">اتاق</button>
+        <button class="tab-btn" data-tab="tab-chat">گفتگو</button>
+        <button class="tab-btn" data-tab="tab-subtitle">زیرنویس</button>
+        <button class="tab-btn" data-tab="tab-settings">تنظیمات</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-room">
+        <p class="panel-line"><span>وضعیت</span><span id="roomPlayState">آماده</span></p>
+        <p class="panel-line"><span>همراه</span><span id="roomPeerState">در انتظار اتصال</span></p>
+      </div>
+
+      <div class="tab-panel" id="tab-chat">
+        <div class="chat-log" id="chatLog"></div>
+        <div class="chat-input-row">
+          <input id="chatInput" class="field-input" placeholder="پیام بنویس...">
+          <button class="btn btn-gold" id="chatSendBtn">ارسال</button>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-subtitle">
+        <label class="checkbox-row"><input type="checkbox" id="subtitleShowCheckbox" checked><span>نمایش زیرنویس</span></label>
+        <label class="field-label small">لینک زیرنویس جدید</label>
+        <input id="roomSubtitleLinkInput" class="field-input field-input--sm" placeholder="https://example.com/subtitle.vtt">
+        <button class="btn btn-outline" id="applySubtitleBtn">اعمال زیرنویس</button>
+      </div>
+
+      <div class="tab-panel" id="tab-settings">
+        <p class="panel-line"><span>لینک ویدیو فعلی</span><span id="settingsVideoUrl">-</span></p>
+        <div id="hostVideoUpdateRow" class="sub-row hidden">
+          <input id="settingsNewVideoUrl" class="field-input field-input--sm" placeholder="لینک ویدیوی جدید">
+          <button class="btn btn-outline" id="settingsUpdateVideoBtn">به‌روزرسانی ویدیو</button>
+        </div>
+        <button class="btn btn-danger btn-block" id="leaveRoomBtn">خروج و پایان اتاق</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.47.0/iconfont/tabler-icons.min.css">
+<script src="https://unpkg.com/peerjs@1/dist/peerjs.min.js"></script>
+<script src="https://unpkg.com/hls.js@1/dist/hls.min.js"></script>
+<script src="https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="js/subtitles.js"></script>
+<script src="js/peer.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
